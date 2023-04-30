@@ -1,2 +1,2 @@
-# serpinsky_cemetery
-The program draws the cemetery of Serpinsky
+# H-Tree
+The program draws the H-Tree fractal
