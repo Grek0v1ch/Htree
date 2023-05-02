@@ -24,7 +24,7 @@ namespace Math {
 		HTree& operator=(HTree&&) = delete;
 
 	public:
-		explicit HTree(unsigned int amountSteps, double lenghtRatio = 2.,
+		explicit HTree(unsigned int amountSteps, double lengthRatio = 2.,
 					   double divisionRatio = 1.);
 		HTree(HTree&&) = default;
 
@@ -33,10 +33,16 @@ namespace Math {
 
 		void setWH(unsigned int newWidth, unsigned int newHeight) noexcept;
 
+		void setLengthRatio(double newLengthRatio);
+
+		void setAmountStep(unsigned int newAmountStep);
+
 	private:
 		void initSprite();
 
 		void makeFractal();
+
+		void genFractal(Line o, unsigned int currStep);
 
 		void drawLine(Line o, unsigned int thickness, Renderer::Color color);
 
@@ -49,7 +55,7 @@ namespace Math {
 	private:
 		Renderer::ViewPort _viewPort;
 		unsigned int _amountSteps;
-		double _lenghtRatio;
+		double _lengthRatio;
 		double _divisionRatio;
 		std::shared_ptr<Renderer::Image> _img;
 		std::shared_ptr<Renderer::Sprite> _sprite;

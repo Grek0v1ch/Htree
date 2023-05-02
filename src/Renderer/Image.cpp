@@ -32,6 +32,6 @@ namespace Renderer {
     }
 
     void Image::clear(double grayRatio) noexcept {
-        std::fill(_data.begin(), _data.end(), 170);
+        std::fill(_data.begin(), _data.end(), 255 * grayRatio);
     }
 }

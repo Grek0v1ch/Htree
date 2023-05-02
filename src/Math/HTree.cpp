@@ -12,16 +12,14 @@
 namespace Math {
 	using namespace Renderer;
 
-	HTree::HTree(unsigned int amountSteps, double lenghtRatio, double divisionRatio)
+	HTree::HTree(unsigned int amountSteps, double lengthRatio, double divisionRatio)
 	: _viewPort({{0, 0}, {1, 1}})
 	, _amountSteps(amountSteps)
-	, _lenghtRatio(lenghtRatio)
+	, _lengthRatio(lengthRatio > 1. ? lengthRatio : 2.)
 	, _divisionRatio(divisionRatio)
 	, _img(std::make_shared<Image>(IMAGE_SIZE, IMAGE_SIZE, 1))
 	, _sprite(nullptr) {
 		// @TODO УДАЛИТЬ ЭТО!!!
-		_amountSteps = 1;
-		_lenghtRatio = 2.;
 		_divisionRatio = 1.;
 		//--------------------
 		makeFractal();
@@ -35,6 +33,18 @@ namespace Math {
 
     void HTree::setWH(const unsigned int newWidth, const unsigned int newHeight) noexcept {
         _sprite->setSize(glm::vec2(newWidth, newHeight));
+    }
+
+    void HTree::setLengthRatio(double newLengthRatio) {
+        _lengthRatio = newLengthRatio > 1. ? newLengthRatio : 2.;
+        _img->clear(1);
+        makeFractal();
+    }
+
+    void HTree::setAmountStep(unsigned int newAmountStep) {
+        _amountSteps = newAmountStep;
+        _img->clear(1);
+        makeFractal();   
     }
 
 	void HTree::initSprite() {
@@ -53,8 +63,34 @@ namespace Math {
     	double height = static_cast<double>(_img->height());
     	Line startLine {{width / 4, height / 2},
     					{3 * width / 4, height / 2}};
-		drawLine(startLine, 3, Color::BLACK);
+        genFractal(startLine, _amountSteps);
 		initSprite();
+    }
+
+    void HTree::genFractal(Line o, unsigned int currStep) {
+        drawLine(o, 3, Color::BLACK);
+        if (currStep == 0) {
+            return;
+        }
+        if (o.first.y == o.second.y) {
+            double length = std::abs(o.first.x - o.second.x);
+            length /= _lengthRatio;
+            Line l1 = {{o.first.x, o.first.y + length / 2},
+                       {o.first.x, o.first.y - length / 2}};
+            Line l2 = {{o.second.x, o.second.y + length / 2},
+                       {o.second.x, o.second.y - length / 2}};
+            genFractal(l1, currStep - 1);
+            genFractal(l2, currStep - 1);
+        } else {
+            double length = std::abs(o.first.y - o.second.y);
+            length /= _lengthRatio;
+            Line l1 = {{o.first.x - length / 2, o.first.y},
+                       {o.first.x + length / 2, o.first.y}};
+            Line l2 = {{o.second.x - length / 2, o.second.y},
+                       {o.second.x + length / 2, o.second.y}};
+            genFractal(l1, currStep - 1);
+            genFractal(l2, currStep - 1);
+        }
     }
 
     void HTree::drawLine(Line o, unsigned int thickness, Renderer::Color color) {
@@ -72,13 +108,13 @@ namespace Math {
             std::swap(o.first, o.second);        
             }
             result = {{o.first.x, o.first.y - thickness / 2},
-                      {o.second.x, o.second.y + thickness / 2}};
+                      {o.second.x, o.first.y + thickness / 2}};
         } else {
             if (o.first.y < o.second.y) {
                 std::swap(o.first, o.second);
             }
             result = {{o.second.x - thickness / 2, o.second.y},
-                      {o.first.x + thickness / 2, o.first.y}};
+                      {o.second.x + thickness / 2, o.first.y}};
         }
         return result;
     }

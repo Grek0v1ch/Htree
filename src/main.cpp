@@ -15,8 +15,8 @@ void keyCallback(GLFWwindow *pWindow, int key, int scancode, int action, int mod
 // 4 - 7
 int main(int argc, char** argv) {
     try {
-        app = std::make_shared<App>("MainWindow", 729, 729, argv[0]);
-        auto fractal = std::make_shared<Math::HTree>(1);
+        app = std::make_shared<App>("MainWindow", 600, 600, argv[0]);
+        auto fractal = std::make_shared<Math::HTree>(3, 1.5);
         fractal->setWH(app->getWidth(), app->getHeight());
         app->setFractal(fractal);
         app->setKeyCallback(keyCallback);
@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
     return 0;
 }
 
-/*
+
 unsigned int inputUInt() {
     std::string str;
     std::cin >> str;
@@ -39,6 +39,7 @@ unsigned int inputUInt() {
             return std::stoi(str);
         } catch (const std::invalid_argument& ex) {
             std::cout << "Try again: ";
+            std::cin >> str;
         }
     }
 }
@@ -51,10 +52,30 @@ double inputDouble() {
             return std::stod(str);
         } catch (const std::invalid_argument& ex) {
             std::cout << "Try again: ";
+            std::cin >> str;
         }
     }
 }
 
+void changeStep() {
+    unsigned int new_step;
+    std::cout << "Change amount step\n";
+    std::cout << "Input amount step: ";
+    new_step = inputUInt();
+    app->getFractal()->setAmountStep(new_step);
+    app->render();
+}
+
+void changeLengthRatio() {
+    double newRatio;
+    std::cout << "Change length ratio\n";
+    std::cout << "Input length ratio: ";
+    newRatio = inputDouble();
+    app->getFractal()->setLengthRatio(newRatio);
+    app->render();
+}
+
+/*
 std::pair<double, double> inputTwoDouble() {
     while (true) {
         try {
@@ -97,24 +118,6 @@ void changeLocation() {
     app->render();
 }
 
-void changeStep() {
-    unsigned int new_step;
-    std::cout << "Change amount step\n";
-    std::cout << "Input amount step: ";
-    new_step = inputUInt();
-    //app->getFractal()->setStep(new_step);
-    app->render();
-}
-
-void changeRatio() {
-    double newRatio;
-    std::cout << "Change ratio\n";
-    std::cout << "Input ratio: ";
-    newRatio = inputDouble();
-    //app->getFractal()->setRatio(newRatio);
-    app->render();
-}
-
 void changeInitPolygon() {
     Math::Polygon newPolygon;
     std::cout << "Change init polygon\n";
@@ -148,7 +151,11 @@ void save() {
 }
 */
 void keyCallback(GLFWwindow *pWindow, int key, int scancode, int action, int mode) {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
-            glfwSetWindowShouldClose(pWindow, GL_TRUE);
+    if (       key == GLFW_KEY_I && action == GLFW_PRESS) {
+        changeStep();
+    } else if (key == GLFW_KEY_L && action == GLFW_PRESS) {
+        changeLengthRatio();
+    } else if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+        glfwSetWindowShouldClose(pWindow, GL_TRUE);
     }
 }
