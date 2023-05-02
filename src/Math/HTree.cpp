@@ -17,6 +17,11 @@ namespace Math {
 	, _divisionRatio(divisionRatio)
 	, _img(std::make_shared<Image>(IMAGE_SIZE, IMAGE_SIZE))
 	, _sprite(nullptr) {
+		// @TODO УДАЛИТЬ ЭТО!!!
+		_amountSteps = 1;
+		_lenghtRatio = 2.;
+		_divisionRatio = 1.;
+		//--------------------
 		makeFractal();
 	}
 
@@ -37,6 +42,40 @@ namespace Math {
     }
 
     void HTree::makeFractal() {
+    	// @TODO Метод не дописан
+    	double width = static_cast<double>(_img->width());
+    	double height = static_cast<double>(_img->height());
+    	Rectangle startRectangle {{width / 4, height / 2 - 1},
+    							  {3 * width / 4, height / 2 + 1}};
+		fillRectangle(startRectangle, Color::WHITE);
+    }
 
+    void HTree::fillRectangle(Rectangle o, Color color) {
+    	scaleRectangle(o);
+    	int minX = ceil(std::min(o.leftBottom.x, o.rightTop.x));
+    	int minY = ceil(std::min(o.leftBottom.y, o.rightTop.y));
+    	int maxX = ceil(std::max(o.leftBottom.x, o.rightTop.x));
+    	int maxY = ceil(std::max(o.leftBottom.y, o.rightTop.y));
+    	for (unsigned int x = minX; x <= maxX and x < _img->width(); x++) {
+    		for (unsigned int y = minY; y <= maxY and y < _img->height(); y++) {
+    			_img->setColor(x, y, color);
+    		}
+    	}
+    }
+
+    void HTree::scaleRectangle(Rectangle& o) const noexcept {
+    	auto crop = [](Vector&& o) -> Vector {
+            o.x = o.x < 0 ? 0 : o.x;
+            o.y = o.y < 0 ? 0 : o.y;
+            return o;
+        };
+        auto temp = _viewPort.leftBottom;
+        temp.scale(_img->width(), _img->height());
+        o.leftBottom = crop(o.leftBottom - temp);
+        o.rightTop = crop(o.rightTop - temp);
+        auto diff = _viewPort.rightTop - _viewPort.leftBottom;
+        double scaleCoefX = diff.x > 0 ? 1. / diff.x : 0.;
+        double scaleCoefY = diff.y > 0 ? 1. / diff.y : 0.;
+        o.scale(scaleCoefX, scaleCoefY);
     }
 }

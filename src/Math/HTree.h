@@ -7,6 +7,7 @@
 namespace Renderer {
 	class Image;
 	class Sprite;
+	enum class Color;
 
 	struct ViewPort {
         Math::Vector leftBottom;
@@ -34,6 +35,10 @@ namespace Math {
 		void initSprite();
 
 		void makeFractal();
+
+		void fillRectangle(Rectangle o, Renderer::Color color);
+
+		void scaleRectangle(Rectangle& o) const noexcept;
 
 	private:
 		Renderer::ViewPort _viewPort;
