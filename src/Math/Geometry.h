@@ -25,4 +25,14 @@ namespace Math {
 	    void scale(double scaleCoefX, double scaleCoefY) noexcept;
 	    void scale(double scaleCoef) noexcept;
 	};
+
+	struct Rectangle {
+		Vector leftBottom;
+		Vector rightTop;
+
+		void scaleX(double scaleCoef) noexcept;
+	    void scaleY(double scaleCoef) noexcept;
+	    void scale(double scaleCoefX, double scaleCoefY) noexcept;
+	    void scale(double scaleCoef) noexcept;
+	};
 }

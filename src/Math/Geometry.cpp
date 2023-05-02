@@ -54,4 +54,23 @@ namespace Math {
     	c.scale(scaleCoef);
     	d.scale(scaleCoef);
     }
+
+    void Rectangle::scaleX(double scaleCoef) noexcept {
+        leftBottom.scaleX(scaleCoef);
+        rightTop.scaleX(scaleCoef);
+    }
+
+    void Rectangle::scaleY(double scaleCoef) noexcept {
+        leftBottom.scaleY(scaleCoef);
+        rightTop.scaleY(scaleCoef);
+    }
+
+    void Rectangle::scale(double scaleCoefX, double scaleCoefY) noexcept {
+        leftBottom.scale(scaleCoefX, scaleCoefY);
+        rightTop.scale(scaleCoefX, scaleCoefY);
+    }
+
+    void Rectangle::scale(double scaleCoef) noexcept {
+        scale(scaleCoef, scaleCoef);
+    }
 }
