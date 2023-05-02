@@ -17,6 +17,8 @@ add_executable(serpinsky_cemetry
         src/Exception/Exception.h
         src/Math/SerpinskyCemetery.cpp
         src/Math/SerpinskyCemetery.h
+        src/Math/HTree.h
+        src/Math/HTree.cpp
         src/Math/Geometry.cpp
         src/Math/Geometry.h
         src/ResourceManager/ResourceManager.cpp
