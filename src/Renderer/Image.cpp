@@ -5,10 +5,10 @@
 #include <algorithm>
 
 namespace Renderer {
-    Image::Image(const unsigned int width, const unsigned int height) noexcept :
+    Image::Image(const unsigned int width, const unsigned int height, double grayRatio) noexcept :
     WIDTH(width),
     HEIGHT(height),
-    _data(WIDTH * HEIGHT * 3, 170) {}
+    _data(WIDTH * HEIGHT * 3, 255 * grayRatio) {}
 
     void Image::setColor(unsigned int x, unsigned int y, Color color) {
         if (x >= WIDTH or y >= HEIGHT) {

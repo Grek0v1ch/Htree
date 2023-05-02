@@ -6,7 +6,8 @@
 namespace Renderer {
     enum class Color {
         WHITE,
-        BLACK
+        BLACK,
+        GREY
     };
 
     class Image {
@@ -16,7 +17,7 @@ namespace Renderer {
         Image& operator=(const Image&) = delete;
         Image& operator=(Image&&) = delete;
     public:
-        Image(unsigned int width, unsigned int height) noexcept;
+        Image(unsigned int width, unsigned int height, double grayRatio = 0.5) noexcept;
 
     public:
         unsigned int width() const noexcept { return WIDTH; }
