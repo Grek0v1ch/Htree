@@ -2,7 +2,7 @@
 #include <memory>
 
 #include "Exception/Exception.h"
-#include "Math/SerpinskyCemetery.h"
+#include "Math/HTree.h"
 #include "Math/Geometry.h"
 #include "App/App.h"
 
@@ -16,11 +16,8 @@ void keyCallback(GLFWwindow *pWindow, int key, int scancode, int action, int mod
 int main(int argc, char** argv) {
     try {
         app = std::make_shared<App>("MainWindow", 729, 729, argv[0]);
-        auto fractal = std::make_shared<Math::SerpinskyCemetery>(Math::Polygon{{0., 0.},
-                                                                               {0., 1.},
-                                                                               {1., 1.},
-                                                                               {1., 0.}});
-        fractal->setWH(app->getWidth(), app->getHeight());
+        auto fractal = std::make_shared<Math::HTree>(1);
+        // fractal->setWH(app->getWidth(), app->getHeight());
         app->setFractal(fractal);
         app->setKeyCallback(keyCallback);
         app->start();
@@ -33,6 +30,7 @@ int main(int argc, char** argv) {
     return 0;
 }
 
+/*
 unsigned int inputUInt() {
     std::string str;
     std::cin >> str;
@@ -95,7 +93,7 @@ void changeLocation() {
     tmp = inputTwoDouble();
     bottom = tmp.first;
     top = tmp.second;
-    app->getFractal()->setViewPort({{bottom, left}, {top, right}});
+    //app->getFractal()->setViewPort({{bottom, left}, {top, right}});
     app->render();
 }
 
@@ -104,7 +102,7 @@ void changeStep() {
     std::cout << "Change amount step\n";
     std::cout << "Input amount step: ";
     new_step = inputUInt();
-    app->getFractal()->setStep(new_step);
+    //app->getFractal()->setStep(new_step);
     app->render();
 }
 
@@ -113,7 +111,7 @@ void changeRatio() {
     std::cout << "Change ratio\n";
     std::cout << "Input ratio: ";
     newRatio = inputDouble();
-    app->getFractal()->setRatio(newRatio);
+    //app->getFractal()->setRatio(newRatio);
     app->render();
 }
 
@@ -140,7 +138,7 @@ void changeInitPolygon() {
     newPolygon.d.x = tmp.first;
     newPolygon.d.y = tmp.second;
 
-    app->getFractal()->setInitPolygon(newPolygon);
+    //app->getFractal()->setInitPolygon(newPolygon);
     app->render();
 }
 
@@ -148,19 +146,9 @@ void save() {
     std::string name = inputImageName();
     app->saveImage(name);
 }
-
+*/
 void keyCallback(GLFWwindow *pWindow, int key, int scancode, int action, int mode) {
-    if (       key == GLFW_KEY_M and action == GLFW_PRESS) {
-        changeLocation();
-    } else if (key == GLFW_KEY_I and action == GLFW_PRESS) {
-        changeStep();
-    } else if (key == GLFW_KEY_P and action == GLFW_PRESS) {
-        changeInitPolygon();
-    } else if (key == GLFW_KEY_R and action == GLFW_PRESS) {
-        changeRatio();
-    } else if (key == GLFW_KEY_S and action == GLFW_PRESS) {
-        save();
-    } else if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
             glfwSetWindowShouldClose(pWindow, GL_TRUE);
     }
 }

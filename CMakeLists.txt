@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.23)
-project(serpinsky_cemetry)
+project(HTree)
 
 set(CMAKE_CXX_FLAGS  "-Wall -Werror -pedantic")
 
-add_executable(serpinsky_cemetry
+add_executable(HTree
         src/main.cpp
         src/Renderer/ShaderProgram.cpp
         src/Renderer/ShaderProgram.h
@@ -15,8 +15,6 @@ add_executable(serpinsky_cemetry
         src/Renderer/Image.h
         src/Exception/Exception.cpp
         src/Exception/Exception.h
-        src/Math/SerpinskyCemetery.cpp
-        src/Math/SerpinskyCemetery.h
         src/Math/HTree.h
         src/Math/HTree.cpp
         src/Math/Geometry.cpp

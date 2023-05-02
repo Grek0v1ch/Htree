@@ -1,5 +1,7 @@
 #include "HTree.h"
 
+#include <iostream>
+
 #include "../Renderer/Image.h"
 #include "../Renderer/Sprite.h"
 #include "../Renderer/Texture2D.h"
@@ -48,6 +50,7 @@ namespace Math {
     	Rectangle startRectangle {{width / 4, height / 2 - 1},
     							  {3 * width / 4, height / 2 + 1}};
 		fillRectangle(startRectangle, Color::WHITE);
+		initSprite();
     }
 
     void HTree::fillRectangle(Rectangle o, Color color) {

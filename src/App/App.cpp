@@ -6,7 +6,7 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "../../external/stb_image_write.h"
 
-#include "../Math/SerpinskyCemetery.h"
+#include "../Math/HTree.h"
 #include "../ResourceManager/ResourceManager.h"
 #include "../Renderer/ShaderProgram.h"
 
@@ -19,11 +19,11 @@ App::App(const std::string& windowName, int width, int height, const std::string
     init(windowName);
 }
 
-std::shared_ptr<Math::SerpinskyCemetery> App::getFractal() const noexcept {
+std::shared_ptr<Math::HTree> App::getFractal() const noexcept {
     return _fractal;
 }
 
-void App::setFractal(const std::shared_ptr<Math::SerpinskyCemetery>& fractal) noexcept {
+void App::setFractal(const std::shared_ptr<Math::HTree>& fractal) noexcept {
     _fractal = fractal;
 }
 

@@ -6,7 +6,7 @@
 #include <GLFW/glfw3.h>
 
 namespace Math {
-    class SerpinskyCemetery;
+    class HTree;
 }
 
 class App {
@@ -14,14 +14,15 @@ public:
     App& operator=(const App&) = delete;
     App(App&&) = delete;
     App& operator=(App&&) = delete;
+
 public:
     App(const std::string& windowName, int width, int height, const std::string& path);
     App(const App&) = default;
 
 public:
-    std::shared_ptr<Math::SerpinskyCemetery> getFractal() const noexcept;
+    std::shared_ptr<Math::HTree> getFractal() const noexcept;
 
-    void setFractal(const std::shared_ptr<Math::SerpinskyCemetery>& fractal) noexcept;
+    void setFractal(const std::shared_ptr<Math::HTree>& fractal) noexcept;
 
     void start() noexcept;
 
@@ -41,5 +42,5 @@ private:
     GLFWwindow* _window;
     const int WIDTH;
     const int HEIGHT;
-    std::shared_ptr<Math::SerpinskyCemetery> _fractal;
+    std::shared_ptr<Math::HTree> _fractal;
 };
