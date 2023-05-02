@@ -17,7 +17,7 @@ namespace Math {
 	, _amountSteps(amountSteps)
 	, _lenghtRatio(lenghtRatio)
 	, _divisionRatio(divisionRatio)
-	, _img(std::make_shared<Image>(IMAGE_SIZE, IMAGE_SIZE))
+	, _img(std::make_shared<Image>(IMAGE_SIZE, IMAGE_SIZE, 1))
 	, _sprite(nullptr) {
 		// @TODO УДАЛИТЬ ЭТО!!!
 		_amountSteps = 1;
@@ -31,6 +31,10 @@ namespace Math {
         if (_sprite) {
             _sprite->render();
         }
+    }
+
+    void HTree::setWH(const unsigned int newWidth, const unsigned int newHeight) noexcept {
+        _sprite->setSize(glm::vec2(newWidth, newHeight));
     }
 
 	void HTree::initSprite() {
@@ -49,7 +53,7 @@ namespace Math {
     	double height = static_cast<double>(_img->height());
     	Rectangle startRectangle {{width / 4, height / 2 - 1},
     							  {3 * width / 4, height / 2 + 1}};
-		fillRectangle(startRectangle, Color::WHITE);
+		fillRectangle(startRectangle, Color::BLACK);
 		initSprite();
     }
 

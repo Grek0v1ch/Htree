@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
     try {
         app = std::make_shared<App>("MainWindow", 729, 729, argv[0]);
         auto fractal = std::make_shared<Math::HTree>(1);
-        // fractal->setWH(app->getWidth(), app->getHeight());
+        fractal->setWH(app->getWidth(), app->getHeight());
         app->setFractal(fractal);
         app->setKeyCallback(keyCallback);
         app->start();

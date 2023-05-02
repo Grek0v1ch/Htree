@@ -31,6 +31,8 @@ namespace Math {
 	public:
 		void render();
 
+		void setWH(unsigned int newWidth, unsigned int newHeight) noexcept;
+
 	private:
 		void initSprite();
 
