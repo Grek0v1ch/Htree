@@ -38,6 +38,10 @@ namespace Math {
 
 		void makeFractal();
 
+		void drawLine(Line o, unsigned int thickness, Renderer::Color color);
+
+		Rectangle genRectangle(Line o, unsigned int thickness);
+
 		void fillRectangle(Rectangle o, Renderer::Color color);
 
 		void scaleRectangle(Rectangle& o) const noexcept;

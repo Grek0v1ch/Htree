@@ -35,4 +35,9 @@ namespace Math {
 	    void scale(double scaleCoefX, double scaleCoefY) noexcept;
 	    void scale(double scaleCoef) noexcept;
 	};
+
+	struct Line {
+		Vector first;
+		Vector second;
+	};
 }

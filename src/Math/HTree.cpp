@@ -51,10 +51,36 @@ namespace Math {
     	// @TODO Метод не дописан
     	double width = static_cast<double>(_img->width());
     	double height = static_cast<double>(_img->height());
-    	Rectangle startRectangle {{width / 4, height / 2 - 1},
-    							  {3 * width / 4, height / 2 + 1}};
-		fillRectangle(startRectangle, Color::BLACK);
+    	Line startLine {{width / 4, height / 2},
+    					{3 * width / 4, height / 2}};
+		drawLine(startLine, 3, Color::BLACK);
 		initSprite();
+    }
+
+    void HTree::drawLine(Line o, unsigned int thickness, Renderer::Color color) {
+        Rectangle rectangle = genRectangle(o, thickness);
+        fillRectangle(rectangle, color);
+    }
+
+    Rectangle HTree::genRectangle(Line o, unsigned int thickness) {
+        Rectangle result;
+        if (thickness % 2 == 0) {
+            thickness++;
+        }
+        if (o.first.y == o.second.y) {
+            if (o.first.x > o.second.x) {
+            std::swap(o.first, o.second);        
+            }
+            result = {{o.first.x, o.first.y - thickness / 2},
+                      {o.second.x, o.second.y + thickness / 2}};
+        } else {
+            if (o.first.y < o.second.y) {
+                std::swap(o.first, o.second);
+            }
+            result = {{o.second.x - thickness / 2, o.second.y},
+                      {o.first.x + thickness / 2, o.first.y}};
+        }
+        return result;
     }
 
     void HTree::fillRectangle(Rectangle o, Color color) {
