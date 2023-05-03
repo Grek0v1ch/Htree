@@ -13,7 +13,7 @@ namespace Math {
 	using namespace Renderer;
 
 	HTree::HTree(unsigned int amountSteps, double lengthRatio, double divisionRatio)
-	: _viewPort({{0, 0}, {1, 1}})
+	: _viewPort({{-1, -1}, {1, 1}})
 	, _amountSteps(amountSteps)
 	, _lengthRatio(lengthRatio > 1. ? lengthRatio : 2.)
 	, _divisionRatio(divisionRatio)
@@ -47,6 +47,12 @@ namespace Math {
         makeFractal();   
     }
 
+    void HTree::setViewPort(const Renderer::ViewPort& viewPort) {
+        _viewPort = viewPort;
+        _img->clear(1);
+        makeFractal();
+    }
+
 	void HTree::initSprite() {
         std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>(_img->width(),
                                                                          _img->height(),
@@ -58,11 +64,10 @@ namespace Math {
     }
 
     void HTree::makeFractal() {
-    	// @TODO Метод не дописан
     	double width = static_cast<double>(_img->width());
-    	double height = static_cast<double>(_img->height());
-    	Line startLine {{width / 4, height / 2},
-    					{3 * width / 4, height / 2}};
+        double height = static_cast<double>(_img->height());
+    	Line startLine {{-0.5, 0}, {0.5, 0}};
+        startLine.scale(width, height);
         genFractal(startLine, _amountSteps);
 		initSprite();
     }

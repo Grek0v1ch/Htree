@@ -37,6 +37,8 @@ namespace Math {
 
 		void setAmountStep(unsigned int newAmountStep);
 
+		void setViewPort(const Renderer::ViewPort& viewPort);
+
 	private:
 		void initSprite();
 

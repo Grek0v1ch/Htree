@@ -75,7 +75,6 @@ void changeLengthRatio() {
     app->render();
 }
 
-/*
 std::pair<double, double> inputTwoDouble() {
     while (true) {
         try {
@@ -86,18 +85,6 @@ std::pair<double, double> inputTwoDouble() {
             std::cout << "Try again: ";
         }
     }
-}
-
-std::string inputImageName() {
-    std::string name;
-    std::cout << "Save image\n";
-    std::cout << "Input file name: ";
-    std::cin >> name;
-    size_t found = name.find_last_of('.');
-    if (found == std::string::npos or name.substr(found) != ".jpg") {
-        name += ".jpg";
-    }
-    return name;
 }
 
 void changeLocation() {
@@ -114,8 +101,21 @@ void changeLocation() {
     tmp = inputTwoDouble();
     bottom = tmp.first;
     top = tmp.second;
-    //app->getFractal()->setViewPort({{bottom, left}, {top, right}});
+    app->getFractal()->setViewPort({{bottom, left}, {top, right}});
     app->render();
+}
+
+/*
+std::string inputImageName() {
+    std::string name;
+    std::cout << "Save image\n";
+    std::cout << "Input file name: ";
+    std::cin >> name;
+    size_t found = name.find_last_of('.');
+    if (found == std::string::npos or name.substr(found) != ".jpg") {
+        name += ".jpg";
+    }
+    return name;
 }
 
 void changeInitPolygon() {
@@ -155,6 +155,8 @@ void keyCallback(GLFWwindow *pWindow, int key, int scancode, int action, int mod
         changeStep();
     } else if (key == GLFW_KEY_L && action == GLFW_PRESS) {
         changeLengthRatio();
+    } else if (key == GLFW_KEY_M && action == GLFW_PRESS) {
+        changeLocation();
     } else if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
         glfwSetWindowShouldClose(pWindow, GL_TRUE);
     }

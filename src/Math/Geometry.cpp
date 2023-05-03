@@ -73,4 +73,23 @@ namespace Math {
     void Rectangle::scale(double scaleCoef) noexcept {
         scale(scaleCoef, scaleCoef);
     }
+
+    void Line::scaleX(double scaleCoef) noexcept {
+        first.scaleX(scaleCoef);
+        second.scaleX(scaleCoef);
+    }
+
+    void Line::scaleY(double scaleCoef) noexcept {
+        first.scaleY(scaleCoef);
+        second.scaleY(scaleCoef);
+    }
+
+    void Line::scale(double scaleCoefX, double scaleCoefY) noexcept {
+        first.scale(scaleCoefX, scaleCoefY);
+        second.scale(scaleCoefX, scaleCoefY);
+    }
+
+    void Line::scale(double scaleCoef) noexcept {
+        scale(scaleCoef, scaleCoef);
+    }
 }

@@ -39,5 +39,10 @@ namespace Math {
 	struct Line {
 		Vector first;
 		Vector second;
+
+		void scaleX(double scaleCoef) noexcept;
+	    void scaleY(double scaleCoef) noexcept;
+	    void scale(double scaleCoefX, double scaleCoefY) noexcept;
+	    void scale(double scaleCoef) noexcept;
 	};
 }
