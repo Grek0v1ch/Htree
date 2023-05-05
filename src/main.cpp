@@ -10,9 +10,6 @@ std::shared_ptr<App> app;
 
 void keyCallback(GLFWwindow *pWindow, int key, int scancode, int action, int mode);
 
-// 1 - 5
-// 2 - 6
-// 4 - 7
 int main(int argc, char** argv) {
     try {
         app = std::make_shared<App>("MainWindow", 600, 600, argv[0]);

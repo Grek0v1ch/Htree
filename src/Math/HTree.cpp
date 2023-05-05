@@ -107,7 +107,7 @@ namespace Math {
         }
     }
 
-    void HTree::drawLine(Line o, unsigned int thickness, Renderer::Color color) {
+    void HTree::drawLine(const Line& o, unsigned int thickness, Renderer::Color color) {
         Rectangle rectangle = genRectangle(o, thickness);
         fillRectangle(rectangle, color);
     }

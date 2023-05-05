@@ -48,7 +48,7 @@ namespace Math {
 
 		void genFractal(Line o, unsigned int currStep);
 
-		void drawLine(Line o, unsigned int thickness, Renderer::Color color);
+		void drawLine(const Line&, unsigned int thickness, Renderer::Color color);
 
 		Rectangle genRectangle(Line o, unsigned int thickness);
 
