@@ -19,9 +19,6 @@ namespace Math {
 	, _divisionRatio(divisionRatio)
 	, _img(std::make_shared<Image>(IMAGE_SIZE, IMAGE_SIZE, 1))
 	, _sprite(nullptr) {
-		// @TODO УДАЛИТЬ ЭТО!!!
-		_divisionRatio = 1.;
-		//--------------------
 		makeFractal();
 	}
 
@@ -37,6 +34,12 @@ namespace Math {
 
     void HTree::setLengthRatio(double newLengthRatio) {
         _lengthRatio = newLengthRatio > 1. ? newLengthRatio : 2.;
+        _img->clear(1);
+        makeFractal();
+    }
+
+    void HTree::setDivisionRatio(double newDivisionRatio) {
+        _divisionRatio = newDivisionRatio > 0. ? newDivisionRatio : 1.;
         _img->clear(1);
         makeFractal();
     }
@@ -82,8 +85,14 @@ namespace Math {
             length /= _lengthRatio;
             Line l1 = {{o.first.x, o.first.y + length / 2},
                        {o.first.x, o.first.y - length / 2}};
+            Vector diff = divingLineInGivenRatio(l1, _divisionRatio) -
+                          divingLineInGivenRatio(l1, 1);
+            l1.move(diff);
+
             Line l2 = {{o.second.x, o.second.y + length / 2},
                        {o.second.x, o.second.y - length / 2}};
+            diff = divingLineInGivenRatio(l2, _divisionRatio) - divingLineInGivenRatio(l2, 1);
+            l2.move(diff);
             genFractal(l1, currStep - 1);
             genFractal(l2, currStep - 1);
         } else {
@@ -151,5 +160,12 @@ namespace Math {
         double scaleCoefX = diff.x > 0 ? 1. / diff.x : 0.;
         double scaleCoefY = diff.y > 0 ? 1. / diff.y : 0.;
         o.scale(scaleCoefX, scaleCoefY);
+    }
+
+    Vector HTree::divingLineInGivenRatio(const Line& o, double ratio) const noexcept {
+        Vector result;
+        result.x = (o.first.x + ratio * o.second.x) / (1 + ratio);
+        result.y = (o.first.y + ratio * o.second.y) / (1 + ratio);
+        return result;
     }
 }

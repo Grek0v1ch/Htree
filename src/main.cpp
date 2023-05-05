@@ -16,7 +16,7 @@ void keyCallback(GLFWwindow *pWindow, int key, int scancode, int action, int mod
 int main(int argc, char** argv) {
     try {
         app = std::make_shared<App>("MainWindow", 600, 600, argv[0]);
-        auto fractal = std::make_shared<Math::HTree>(3, 1.5);
+        auto fractal = std::make_shared<Math::HTree>(1, 1.5);
         fractal->setWH(app->getWidth(), app->getHeight());
         app->setFractal(fractal);
         app->setKeyCallback(keyCallback);
@@ -75,6 +75,15 @@ void changeLengthRatio() {
     app->render();
 }
 
+void changeDivisionRatio() {
+    double newRatio;
+    std::cout << "Change division ratio\n";
+    std::cout << "Input division ratio: ";
+    newRatio = inputDouble();
+    app->getFractal()->setDivisionRatio(newRatio);
+    app->render();
+}
+
 std::pair<double, double> inputTwoDouble() {
     while (true) {
         try {
@@ -105,7 +114,6 @@ void changeLocation() {
     app->render();
 }
 
-/*
 std::string inputImageName() {
     std::string name;
     std::cout << "Save image\n";
@@ -118,38 +126,11 @@ std::string inputImageName() {
     return name;
 }
 
-void changeInitPolygon() {
-    Math::Polygon newPolygon;
-    std::cout << "Change init polygon\n";
-    std::cout << "Input point A: ";
-    auto tmp = inputTwoDouble();
-    newPolygon.a.x = tmp.first;
-    newPolygon.a.y = tmp.second;
-
-    std::cout << "Input point B: ";
-    tmp = inputTwoDouble();
-    newPolygon.b.x = tmp.first;
-    newPolygon.b.y = tmp.second;
-
-    std::cout << "Input point C: ";
-    tmp = inputTwoDouble();
-    newPolygon.c.x = tmp.first;
-    newPolygon.c.y = tmp.second;
-
-    std::cout << "Input point D: ";
-    tmp = inputTwoDouble();
-    newPolygon.d.x = tmp.first;
-    newPolygon.d.y = tmp.second;
-
-    //app->getFractal()->setInitPolygon(newPolygon);
-    app->render();
-}
-
 void save() {
     std::string name = inputImageName();
     app->saveImage(name);
 }
-*/
+
 void keyCallback(GLFWwindow *pWindow, int key, int scancode, int action, int mode) {
     if (       key == GLFW_KEY_I && action == GLFW_PRESS) {
         changeStep();
@@ -157,6 +138,10 @@ void keyCallback(GLFWwindow *pWindow, int key, int scancode, int action, int mod
         changeLengthRatio();
     } else if (key == GLFW_KEY_M && action == GLFW_PRESS) {
         changeLocation();
+    } else if (key == GLFW_KEY_S && action == GLFW_PRESS) {
+        save();
+    } else if (key == GLFW_KEY_D && action == GLFW_PRESS) {
+        changeDivisionRatio();
     } else if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
         glfwSetWindowShouldClose(pWindow, GL_TRUE);
     }

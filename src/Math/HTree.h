@@ -35,6 +35,8 @@ namespace Math {
 
 		void setLengthRatio(double newLengthRatio);
 
+		void setDivisionRatio(double newDivisionRatio);
+
 		void setAmountStep(unsigned int newAmountStep);
 
 		void setViewPort(const Renderer::ViewPort& viewPort);
@@ -53,6 +55,8 @@ namespace Math {
 		void fillRectangle(Rectangle o, Renderer::Color color);
 
 		void scaleRectangle(Rectangle& o) const noexcept;
+
+		Vector divingLineInGivenRatio(const Line& o, double ratio) const noexcept;
 
 	private:
 		Renderer::ViewPort _viewPort;
