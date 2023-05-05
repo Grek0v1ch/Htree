@@ -92,4 +92,9 @@ namespace Math {
     void Line::scale(double scaleCoef) noexcept {
         scale(scaleCoef, scaleCoef);
     }
+
+    void Line::move(const Vector& o) {
+        first = first - o;
+        second = second - o;
+    }
 }
